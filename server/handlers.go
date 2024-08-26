@@ -15,19 +15,10 @@ type IPXE struct {
 }
 
 func (c *IPXE) Run() error {
-	mux := http.NewServeMux()
-
-	p := "/images/"
-	ih, err := NewImageHandler(filepath.Join(c.DataDir, p))
+	handler, err := c.buildHandler()
 	if err != nil {
 		return err
 	}
-	mux.Handle("/images/{ostype}/{filetype}/", http.StripPrefix(p, ih))
-
-	p = "/configs/"
-	handler := http.FileServer(http.Dir(filepath.Join(c.DataDir, p)))
-	mux.Handle(p, http.StripPrefix(p, handler))
-
 	// Start the iPXE Boot Server.
 	fmt.Println("Starting CoreOS iPXE Server...")
 	fmt.Printf("Listening on %s\n", c.ListenAddr)
@@ -35,23 +26,37 @@ func (c *IPXE) Run() error {
 		fmt.Printf("Base URL %s\n", c.BaseUrl)
 	}
 	fmt.Printf("Data directory: %s\n", c.DataDir)
+
 	httpSrv := http.Server{
 		Addr:    c.ListenAddr,
-		Handler: withLogging(mux),
+		Handler: handler,
 	}
 	return httpSrv.ListenAndServe()
+}
+
+func (c *IPXE) buildHandler() (http.Handler, error) {
+	mux := http.NewServeMux()
+
+	p := "/images/"
+	ih, err := NewImageHandler(filepath.Join(c.DataDir, p))
+	if err != nil {
+		return nil, err
+	}
+	mux.Handle("/images/{ostype}/{filetype}", http.StripPrefix(p, ih))
+
+	p = "/configs/"
+	handler := http.FileServer(http.Dir(filepath.Join(c.DataDir, p)))
+	mux.Handle(p, http.StripPrefix(p, handler))
+	return withLogging(mux), nil
 }
 
 func withLogging(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
-		ww := &responseWriter{
-			ResponseWriter: w,
-			code:           http.StatusOK,
-		}
+		ww := &responseWriter{ResponseWriter: w}
 		h.ServeHTTP(ww, r)
 		duration := time.Since(start)
-		log.Printf("%s %s %d %s", r.Method, r.URL.Path, ww.code, duration)
+		log.Printf("%s %s%s %d %s", r.Method, r.URL.Path, r.URL.Query().Encode(), ww.code, duration)
 	})
 }
 
@@ -61,14 +66,15 @@ type responseWriter struct {
 }
 
 func (l *responseWriter) Write(b []byte) (int, error) {
-	l.code = http.StatusOK
+	if l.code == 0 {
+		l.code = http.StatusOK
+	}
 	return l.ResponseWriter.Write(b)
 }
 
 func (l *responseWriter) WriteHeader(statusCode int) {
-	if l.code != 0 {
-		return
+	if l.code == 0 {
+		l.code = statusCode
 	}
-	l.code = statusCode
 	l.ResponseWriter.WriteHeader(statusCode)
 }

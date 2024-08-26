@@ -19,13 +19,16 @@ func NewImageHandler(rootDir string) (http.Handler, error) {
 		return nil, err
 	}
 	handler := func(w http.ResponseWriter, r *http.Request) {
+		for k, v := range r.Header {
+			log.Printf("HEADER: %s => %q", k, v)
+		}
 		relpath, err := ImagePath(r)
 		if err != nil {
 			fmt.Fprintf(w, "Invalid Request: %s\n", err)
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
-		fmt.Printf("[Image] %s -> %s\n", r.URL.Path, relpath)
+		log.Printf("[Image] %s -> %s", r.URL.Path, relpath)
 		rr := r.Clone(r.Context())
 		rr.URL.Path = relpath
 		localCache.ServeHTTP(w, rr)
@@ -44,6 +47,11 @@ var (
 	kernel   = "fedora-coreos-${VERSION}-live-kernel-${ARCH}"
 	rootfs   = "fedora-coreos-${VERSION}-live-rootfs.${ARCH}.img"
 	initrd   = "fedora-coreos-${VERSION}-live-initramfs.${ARCH}.img"
+
+	coreosDefaults = map[string]string{
+		"stream": "stable",
+		"arch":   "x86_64",
+	}
 )
 
 func ImagePath(r *http.Request) (relpath string, error error) {
@@ -66,10 +74,13 @@ func ImagePath(r *http.Request) (relpath string, error error) {
 		return "", fmt.Errorf("invalid path type: %s", r.PathValue("filetype"))
 	}
 	for _, k := range []string{"stream", "version", "arch"} {
-		if !q.Has(k) {
-			return "", fmt.Errorf("request is missing param: %s", k)
+		v, ok := q.Get(k), q.Has(k)
+		if !ok {
+			v, ok = coreosDefaults[k]
+			if !ok {
+				return "", fmt.Errorf("request is missing required param: %s", k)
+			}
 		}
-		v := q.Get(k)
 		kx := fmt.Sprintf("${%s}", strings.ToUpper(k))
 		relpath = strings.ReplaceAll(relpath, kx, v)
 	}
@@ -97,18 +108,16 @@ func (h *cachedFile) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	localFile := filepath.Join(h.root, relpath)
 	_, err := os.Stat(localFile)
 	if err != nil && !errors.Is(err, fs.ErrNotExist) {
-		fmt.Fprintf(w, "Stat Error: %s\n", err)
-		w.WriteHeader(http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("Stat Error: %s", err), http.StatusInternalServerError)
 		return
 	}
 	if err == nil {
 		http.ServeFile(w, r, localFile)
 		return
 	}
-	fmt.Printf("[Image] Fetching %s\n", relpath)
+	log.Printf("[Image] Fetching %s", relpath)
 	if err = h.fetch(relpath); err != nil {
-		fmt.Fprintf(w, "Remote Error: %s\n", err)
-		w.WriteHeader(http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("Remote Error: %s", err), http.StatusInternalServerError)
 		return
 	}
 	http.ServeFile(w, r, localFile)
@@ -122,7 +131,7 @@ func (h *cachedFile) fetch(relpath string) error {
 		return err
 	}
 	localpath := filepath.Join(h.root, relpath)
-	fmt.Printf("Fetch %s -> %s", u.String(), localpath)
+	log.Printf("Fetch %s -> %s", u.String(), localpath)
 
 	// Get the data
 	resp, err := http.Get(u.String())
