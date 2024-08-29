@@ -4,16 +4,15 @@ import (
 	"fmt"
 	"github.com/coreos/stream-metadata-go/fedoracoreos"
 	"github.com/coreos/stream-metadata-go/stream"
-	"github.com/nveeser/corepxe/server"
+	"github.com/nveeser/corepxe/mirror"
 	"log"
 	"net/http"
-	"path/filepath"
 )
 
 type ImageHandler struct {
-	Streams     map[string]*stream.Stream
+	Streams     *StreamCache
 	ImageMirror interface {
-		ServeAsset(w http.ResponseWriter, r *http.Request, asset server.ImageAsset)
+		ServeAsset(w http.ResponseWriter, r *http.Request, asset mirror.ImageAsset)
 	}
 }
 
@@ -34,7 +33,7 @@ func (h *ImageHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("[Image] %s -> %s", r.URL.String(), name)
 	a := &coreosAsset{
-		path:     filepath.Join("coreos", name),
+		path:     name,
 		artifact: artifact,
 	}
 	h.ImageMirror.ServeAsset(w, r, a)

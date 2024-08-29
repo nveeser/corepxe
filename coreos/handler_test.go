@@ -1,7 +1,7 @@
 package coreos
 
 import (
-	"github.com/nveeser/corepxe/server"
+	"github.com/nveeser/corepxe/mirror"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -10,21 +10,20 @@ import (
 // TODO test bad requests
 // TODO test query params / defaults
 
-type mirrorFunc func(w http.ResponseWriter, r *http.Request, asset server.ImageAsset)
-
-func (m mirrorFunc) ServeAsset(w http.ResponseWriter, r *http.Request, asset server.ImageAsset) {
-	m(w, r, asset)
-}
-
-func TestImagePathRewrite(t *testing.T) {
+func TestImageHandler(t *testing.T) {
 	var gotPath string
-	mirror := mirrorFunc(func(w http.ResponseWriter, r *http.Request, asset server.ImageAsset) {
+	mf := mirrorFunc(func(w http.ResponseWriter, r *http.Request, asset mirror.ImageAsset) {
 		gotPath = asset.RelativePath()
 		w.WriteHeader(http.StatusOK)
 	})
 
 	h := http.NewServeMux()
-	h.Handle("GET /images/coreos/{filetype}", &CoreosImageHandler{mirror})
+	h.Handle("GET /images/coreos/{filetype}", &ImageHandler{
+		ImageMirror: mf,
+		Streams: &StreamCache{
+			LocalDir: "testdata/",
+		},
+	})
 
 	cases := []struct {
 		name  string
@@ -33,18 +32,18 @@ func TestImagePathRewrite(t *testing.T) {
 	}{
 		{
 			name:  "kernel",
-			input: "/images/coreos/kernel?version=40.1234.001",
-			want:  "coreos/fedora-coreos-40.1234.001-live-kernel-x86_64",
+			input: "/images/coreos/kernel",
+			want:  "coreos/fedora-coreos-40.20240728.3.0-live-kernel-x86_64",
 		},
 		{
 			name:  "rootfs",
-			input: "/images/coreos/rootfs?version=40.1234.001",
-			want:  "coreos/fedora-coreos-40.1234.001-live-rootfs.x86_64.img",
+			input: "/images/coreos/rootfs",
+			want:  "coreos/fedora-coreos-40.20240728.3.0-live-rootfs.x86_64.img",
 		},
 		{
 			name:  "initrd",
-			input: "/images/coreos/initrd?version=40.1234.001",
-			want:  "coreos/fedora-coreos-40.1234.001-live-initramfs.x86_64.img",
+			input: "/images/coreos/initrd",
+			want:  "coreos/fedora-coreos-40.20240728.3.0-live-initramfs.x86_64.img",
 		},
 	}
 
@@ -63,4 +62,10 @@ func TestImagePathRewrite(t *testing.T) {
 			}
 		})
 	}
+}
+
+type mirrorFunc func(w http.ResponseWriter, r *http.Request, asset mirror.ImageAsset)
+
+func (m mirrorFunc) ServeAsset(w http.ResponseWriter, r *http.Request, asset mirror.ImageAsset) {
+	m(w, r, asset)
 }

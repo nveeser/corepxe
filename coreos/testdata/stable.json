@@ -1,0 +1,191 @@
+{
+    "stream": "stable",
+    "metadata": {
+        "last-modified": "2024-08-15T00:33:25Z",
+        "generator": "fedora-coreos-stream-generator v0.2.15"
+    },
+    "architectures": {
+        "x86_64": {
+            "artifacts": {
+                "metal": {
+                    "release": "40.20240728.3.0",
+                    "formats": {
+                        "4k.raw.xz": {
+                            "disk": {
+                                "location": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/40.20240728.3.0/x86_64/fedora-coreos-40.20240728.3.0-metal4k.x86_64.raw.xz",
+                                "signature": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/40.20240728.3.0/x86_64/fedora-coreos-40.20240728.3.0-metal4k.x86_64.raw.xz.sig",
+                                "sha256": "e2124402a2ba69eb4c3201240fdb99c03d34fba09017de970cda5d4a2f5ad209",
+                                "uncompressed-sha256": "ef8d1c5aaa940d245a88a0e0edce2af90b7639103e11792aec7702f83a7e78b8"
+                            }
+                        },
+                        "iso": {
+                            "disk": {
+                                "location": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/40.20240728.3.0/x86_64/fedora-coreos-40.20240728.3.0-live.x86_64.iso",
+                                "signature": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/40.20240728.3.0/x86_64/fedora-coreos-40.20240728.3.0-live.x86_64.iso.sig",
+                                "sha256": "ccfb5729f6e86ed54c28884dbf1d1554305dd43040d757928204fceb1ec09be0"
+                            }
+                        },
+                        "pxe": {
+                            "kernel": {
+                                "location": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/40.20240728.3.0/x86_64/fedora-coreos-40.20240728.3.0-live-kernel-x86_64",
+                                "signature": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/40.20240728.3.0/x86_64/fedora-coreos-40.20240728.3.0-live-kernel-x86_64.sig",
+                                "sha256": "559b86e867a743956204d1f17e492c3273c6ef288accf3aa0c4356e16a9aa439"
+                            },
+                            "initramfs": {
+                                "location": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/40.20240728.3.0/x86_64/fedora-coreos-40.20240728.3.0-live-initramfs.x86_64.img",
+                                "signature": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/40.20240728.3.0/x86_64/fedora-coreos-40.20240728.3.0-live-initramfs.x86_64.img.sig",
+                                "sha256": "9e7911cd5a129f3ef83c646afd06149745ecb60ef9d8b1223fea61a5615b86b5"
+                            },
+                            "rootfs": {
+                                "location": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/40.20240728.3.0/x86_64/fedora-coreos-40.20240728.3.0-live-rootfs.x86_64.img",
+                                "signature": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/40.20240728.3.0/x86_64/fedora-coreos-40.20240728.3.0-live-rootfs.x86_64.img.sig",
+                                "sha256": "ef014785149ebf9fd88c13aa23ff24486161e422e4f702ce8a7691b569e1d117"
+                            }
+                        },
+                        "raw.xz": {
+                            "disk": {
+                                "location": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/40.20240728.3.0/x86_64/fedora-coreos-40.20240728.3.0-metal.x86_64.raw.xz",
+                                "signature": "https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/40.20240728.3.0/x86_64/fedora-coreos-40.20240728.3.0-metal.x86_64.raw.xz.sig",
+                                "sha256": "730038d168bc942e4643e2c32e78535004d6a286ef70176c1c0f5889f12a126b",
+                                "uncompressed-sha256": "8b90e0fee8b30cb4ff6a3e54000f4cd91af31aba3837641e5141a363b1a2b1ad"
+                            }
+                        }
+                    }
+                }
+            },
+            "images": {
+                "aws": {
+                    "regions": {
+                        "af-south-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-05c6bb254507c43cc"
+                        },
+                        "ap-east-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-042f13df88f3d7ac0"
+                        },
+                        "ap-northeast-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-027e66de13705c799"
+                        },
+                        "ap-northeast-2": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0df0fd9bfbb806bff"
+                        },
+                        "ap-northeast-3": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-03cb0c294b782b36c"
+                        },
+                        "ap-south-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-041fa0f53688cdb70"
+                        },
+                        "ap-south-2": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-07a48583a85680dbc"
+                        },
+                        "ap-southeast-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0e229135699755b96"
+                        },
+                        "ap-southeast-2": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-00ccc5c0f223f9c36"
+                        },
+                        "ap-southeast-3": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0b66025ed56725949"
+                        },
+                        "ap-southeast-4": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0d6eccdd0d837e91b"
+                        },
+                        "ca-central-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0c69949cd7033aa27"
+                        },
+                        "ca-west-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0f159092e6c9aae95"
+                        },
+                        "eu-central-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0818d11fe91521f88"
+                        },
+                        "eu-central-2": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0ea44594da95d080f"
+                        },
+                        "eu-north-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-00f9e0f85f3b48966"
+                        },
+                        "eu-south-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-00f14d4a88fb40494"
+                        },
+                        "eu-south-2": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-05b4548551fee760b"
+                        },
+                        "eu-west-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-09a64a7f5429b4f9e"
+                        },
+                        "eu-west-2": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-043dc6dbfd3df3cfc"
+                        },
+                        "eu-west-3": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0efa1a4515fb346c3"
+                        },
+                        "il-central-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-03c024974e531c89a"
+                        },
+                        "me-central-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0e75df18492801651"
+                        },
+                        "me-south-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0f574903f37448354"
+                        },
+                        "sa-east-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-072ce7c2f0da61e4d"
+                        },
+                        "us-east-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-03f543464cf460674"
+                        },
+                        "us-east-2": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0191ee134962b0906"
+                        },
+                        "us-west-1": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0ee2ae1570d15ed19"
+                        },
+                        "us-west-2": {
+                            "release": "40.20240728.3.0",
+                            "image": "ami-0d775ffee25006fff"
+                        }
+                    }
+                },
+                "gcp": {
+                    "release": "40.20240728.3.0",
+                    "project": "fedora-coreos-cloud",
+                    "family": "fedora-coreos-stable",
+                    "name": "fedora-coreos-40-20240728-3-0-gcp-x86-64"
+                },
+                "kubevirt": {
+                    "release": "40.20240728.3.0",
+                    "image": "quay.io/fedora/fedora-coreos-kubevirt:stable",
+                    "digest-ref": "quay.io/fedora/fedora-coreos-kubevirt@sha256:fb4c720d15bbe5023899da388a608cd7a290db4bc5e6d412c6023e3f00302e78"
+                }
+            }
+        }
+    }
+}

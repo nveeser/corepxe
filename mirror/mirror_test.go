@@ -31,8 +31,8 @@ func TestMirrorHandler(t *testing.T) {
 	mirror := ImageMirror{imageDir}
 
 	asset := &urlAsset{
-		remote: remoteu,
-		rpath:  "foo/data",
+		remote:  remoteu,
+		relpath: "foo/data",
 	}
 	{
 		r := httptest.NewRequest("GET", "/", nil)
