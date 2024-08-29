@@ -1,0 +1,25 @@
+variant: fcos
+version: 1.5.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys_local:
+        - users/nicholas/compile.pub
+        - users/nicholas/macbookpro.pub
+    - name: core
+      ssh_authorized_keys_local:
+        - users/nicholas/compile.pub
+        - users/nicholas/macbookpro.pub
+
+storage:
+    files: 
+      - path: /etc/sudoers.d/nicholas
+        overwrite: true
+        contents:
+          inline: | 
+            nicholas ALL=(ALL) NOPASSWD: ALL
+
+      - path: /etc/systemd/network/010-eth0.link
+        overwrite: true
+        contents:
+          local: network/010-eth0.link
