@@ -12,6 +12,8 @@ import (
 	"sync"
 )
 
+// StreamCache maintains a local copy of the Stream JSON info
+// fetched from Fedora.
 type StreamCache struct {
 	LocalDir string
 	m        map[string]*stream.Stream

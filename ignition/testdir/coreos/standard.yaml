@@ -2,7 +2,7 @@ variant: fcos
 version: 1.5.0
 passwd:
   users:
-    - name: core
+    - name: base
 
 storage:
     files: 
@@ -12,7 +12,7 @@ storage:
           inline: | 
             nicholas ALL=(ALL) NOPASSWD: ALL
 
-      - path: /etc/systemd/network/010-eth0.link
+      - path: /etc/systemd/network/010-admin0.link
         overwrite: true
         contents:
-          local: network/010-eth0.link
+          local: network/010-admin0.link
