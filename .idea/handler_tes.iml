@@ -3,8 +3,9 @@
   <component name="Go" enabled="true" />
   <component name="NewModuleRootManager">
     <content url="file://$USER_HOME$/butane" />
+    <content url="file://$USER_HOME$/butanex" />
     <content url="file://$MODULE_DIR$" />
-    <content url="file://$USER_HOME$/pxe-files" />
+    <content url="file://$USER_HOME$/peyta.com" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
