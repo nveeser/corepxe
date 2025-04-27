@@ -19,6 +19,7 @@ require (
 	github.com/coreos/vcontext v0.0.0-20230201181013-d72178a18687 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
+	github.com/nveeser/srvsrv v0.9.3 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	github.com/stretchr/testify v1.9.0 // indirect
@@ -27,3 +28,4 @@ require (
 )
 
 replace github.com/nveeser/butanex => ../butanex
+replace github.com/nveeser/srvsrv => ../srvsrv
