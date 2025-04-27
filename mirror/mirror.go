@@ -29,6 +29,7 @@ func (h *ImageMirror) ServeAsset(w http.ResponseWriter, r *http.Request, asset I
 		return
 	}
 	if err == nil {
+		log.Printf("[Image] Server Cached %s", asset.RelativePath())
 		http.ServeFile(w, r, localFile)
 		return
 	}
@@ -42,6 +43,7 @@ func (h *ImageMirror) ServeAsset(w http.ResponseWriter, r *http.Request, asset I
 		http.Error(w, fmt.Sprintf("Remote Error: %s", err), http.StatusInternalServerError)
 		return
 	}
+	log.Printf("[Image] Server %s", asset.RelativePath())
 	http.ServeFile(w, r, localFile)
 }
 

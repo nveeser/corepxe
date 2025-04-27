@@ -4,7 +4,7 @@ import "testing"
 
 func TestStreamCache(t *testing.T) {
 	scache := &StreamCache{
-		LocalDir: "testdata/",
+		LocalDir: "simple/",
 	}
 	_, err := scache.Get("stable")
 	if err != nil {

@@ -1,16 +1,13 @@
 variant: fcos
 version: 1.5.0
-passwd:
-  users:
-    - name: base
 
 storage:
     files: 
-      - path: /etc/sudoers.d/nicholas
+      - path: /etc/sudoers.d/myuser
         overwrite: true
         contents:
           inline: | 
-            nicholas ALL=(ALL) NOPASSWD: ALL
+            myuser ALL=(ALL) NOPASSWD: ALL
 
       - path: /etc/systemd/network/010-admin0.link
         overwrite: true

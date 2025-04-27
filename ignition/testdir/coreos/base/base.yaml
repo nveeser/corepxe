@@ -1,0 +1,11 @@
+variant: fcos
+version: 1.5.0
+passwd:
+  users:
+    - name: base
+      password_hash: "$y$j9T$3HnRu8u66/yKV5cVr/W7V/$KQvhPEPMLeDrbK4MRnthNPfoswrmw0ODwZMLoTSLEd/"
+
+storage:
+    links:
+      - path: /etc/localtime
+        target: ../usr/share/zoneinfo/America/Los_Angeles

@@ -21,7 +21,7 @@ func TestImageHandler(t *testing.T) {
 	h.Handle("GET /images/coreos/{filetype}", &ImageHandler{
 		ImageMirror: mf,
 		Streams: &StreamCache{
-			LocalDir: "testdata/",
+			LocalDir: "simple/",
 		},
 	})
 

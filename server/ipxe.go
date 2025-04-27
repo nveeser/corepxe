@@ -38,7 +38,7 @@ func (h *ipxeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	ignition := &url.URL{
 		Scheme: "http",
 		Host:   r.Host,
-		Path:   "configs/coreos/standard",
+		Path:   "configs/coreos/core1",
 	}
 	data := &struct {
 		ImageURL    string

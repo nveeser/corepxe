@@ -1,0 +1,39 @@
+{
+  "ignition": {
+    "version": "3.4.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "base",
+        "passwordHash": "$y$j9T$3HnRu8u66/yKV5cVr/W7V/$KQvhPEPMLeDrbK4MRnthNPfoswrmw0ODwZMLoTSLEd/"
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "overwrite": true,
+        "path": "/etc/sudoers.d/myuser",
+        "contents": {
+          "compression": "",
+          "source": "data:,myuser%20ALL%3D(ALL)%20NOPASSWD%3A%20ALL%0A"
+        }
+      },
+      {
+        "overwrite": true,
+        "path": "/etc/systemd/network/010-admin0.link",
+        "contents": {
+          "compression": "",
+          "source": "data:,%5BMatch%5D%0APath%3Dpci-0000%3A0b%3A00.0%0A%5BLink%5D%0ANamePolicy%3D%0AName%3Dadmin0%0A"
+        }
+      }
+    ],
+    "links": [
+      {
+        "path": "/etc/localtime",
+        "target": "../usr/share/zoneinfo/America/Los_Angeles"
+      }
+    ]
+  }
+}
