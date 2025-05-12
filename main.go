@@ -8,8 +8,8 @@ import (
 
 var srv server.IPXE
 
-var defaultConfigDir = "/home/nicholas/pxe-files/configs/"
-var defaultImageDir = "/home/nicholas/pxe-files/images/"
+var defaultConfigDir = "/home/nicholas/peyta.com/corepxe/"
+var defaultImageDir = "/home/nicholas/corepxe/images/"
 var defaultListenAddr = "0.0.0.0:8086"
 
 func init() {

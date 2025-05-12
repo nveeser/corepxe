@@ -3,8 +3,8 @@ package server
 import (
 	"fmt"
 	"github.com/nveeser/corepxe/coreos"
+	"github.com/nveeser/corepxe/coreos/mirror"
 	"github.com/nveeser/corepxe/ignition"
-	"github.com/nveeser/corepxe/mirror"
 	"log"
 	"net/http"
 	"path/filepath"
@@ -18,15 +18,16 @@ type IPXE struct {
 }
 
 func (c *IPXE) Run() error {
+	// Starting the iPXE Boot Server.
+	fmt.Println("Starting CorePXE iPXE Server...")
+	fmt.Printf("Listening on %s\n", c.ListenAddr)
+	fmt.Printf("Configs: %s\n", c.ConfigDir)
+	fmt.Printf("Images: %s\n", c.ImageDir)
+
 	handler, err := c.buildHandler()
 	if err != nil {
 		return err
 	}
-	// Start the iPXE Boot Server.
-	fmt.Println("Starting CoreOS iPXE Server...")
-	fmt.Printf("Listening on %s\n", c.ListenAddr)
-	fmt.Printf("Configs: %s\n", c.ConfigDir)
-	fmt.Printf("Images: %s\n", c.ImageDir)
 
 	httpSrv := http.Server{
 		Addr:    c.ListenAddr,
@@ -55,7 +56,7 @@ func (c *IPXE) buildHandler() (http.Handler, error) {
 
 	pxeHandler, err := NewIPXEHandler(c.ConfigDir)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error building IPXE handler: %w", err)
 	}
 	mux.Handle("GET /configs/ipxe/{name}", pxeHandler)
 

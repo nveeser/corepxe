@@ -31,13 +31,13 @@ func TestIgnitionHandler(t *testing.T) {
 	if err != nil {
 		t.Errorf("ReadFile(want.json) got err: %s", err)
 	}
-	var b bytes.Buffer
-	if err := json.Indent(&b, got, "", "   "); err != nil {
-		t.Errorf("json.Indent() got err: %s", err)
-	}
 
 	if diff := cmp.Diff(mustUnmarshal(t, want), mustUnmarshal(t, got)); diff != "" {
 		t.Errorf("request got diff: -want/+got: %s", diff)
+		var b bytes.Buffer
+		if err := json.Indent(&b, got, "", "   "); err != nil {
+			t.Errorf("json.Indent() got err: %s", err)
+		}
 		t.Logf("GOT:\n%s\n", b.String())
 	}
 }

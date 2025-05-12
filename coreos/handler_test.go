@@ -1,7 +1,7 @@
 package coreos
 
 import (
-	"github.com/nveeser/corepxe/mirror"
+	"github.com/nveeser/corepxe/coreos/mirror"
 	"net/http"
 	"net/http/httptest"
 	"testing"

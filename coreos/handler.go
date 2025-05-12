@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/coreos/stream-metadata-go/fedoracoreos"
 	"github.com/coreos/stream-metadata-go/stream"
-	"github.com/nveeser/corepxe/mirror"
+	"github.com/nveeser/corepxe/coreos/mirror"
 	"log"
 	"net/http"
 )

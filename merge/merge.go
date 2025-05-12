@@ -64,7 +64,7 @@ func processJSON(d []byte) ([]byte, error) {
 		opts = append(opts, jsonwalk.Replace(path))
 	}
 
-	for v := range jsonwalk.Find(root, "ignition.config.merge.*") {
+	for v := range jsonwalk.Find(root, "$.ignition.config.merge.*") {
 		mergeMap := v.(map[string]any)
 		jsonMap, err := decodeMerge(mergeMap)
 		if err != nil {
